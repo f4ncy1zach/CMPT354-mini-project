@@ -30,7 +30,7 @@ def borrow_item(user_id, item_id, due_date):
 
     cur.execute("SELECT status FROM Item WHERE ItemID = ?", (item_id,))
     status = cur.fetchone()
-    if status and status[0] == "available": 
+    if status and status[0] == "Available": 
 
         # insert a new loan 
         cur.execute(
