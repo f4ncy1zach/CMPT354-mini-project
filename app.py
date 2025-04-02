@@ -164,6 +164,16 @@ def print_loans():
     for loan in loans:
         print(dict(loan))
 
+def get_user_preference(preference):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO User (preference) VALUES (?)", (preference,)
+    )
+    conn.commit()
+    conn.close()
+    
+
 # Main application loop with command line interface
 def main():
     # print_loans()
@@ -184,6 +194,10 @@ def main():
         elif choice == 2: 
             email = input("Enter your email: ")
             create_user(email)
+            preference = input("Enter your preference "
+            "(Book Club, Art, Music, Poetry, Tech, Film, Science, History).\n"
+            "This will help us to recommend events for you: ")
+            get_user_preference(preference)
             break
 
         elif choice == 3: 
