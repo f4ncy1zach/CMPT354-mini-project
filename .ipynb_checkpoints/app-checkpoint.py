@@ -141,7 +141,6 @@ def create_user(email):
     print(f"Account successfully created. Your user ID is {user_id}")
     conn.commit()
     conn.close()
-    return user_id
 
 def check_valid(user_id):
 
@@ -165,17 +164,6 @@ def print_loans():
     for loan in loans:
         print(dict(loan))
 
-def set_user_preference(preference, uid):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute(
-        "UPDATE User SET preference = ? WHERE UserID = ?", (preference, uid) 
-    )
-    print(f"Your preference is set to {preference}! You will be notified if we have a related event!")
-    conn.commit()
-    conn.close()
-    
-
 # Main application loop with command line interface
 def main():
     # print_loans()
@@ -195,12 +183,7 @@ def main():
                 print("Invalid ID")
         elif choice == 2: 
             email = input("Enter your email: ")
-            cur_id = create_user(email)
-            
-            preference = input("Enter your preference "
-            "(Book Club, Art, Music, Poetry, Tech, Film, Science, History).\n"
-            "This will help us to recommend events for you: ")
-            set_user_preference(preference, cur_id)
+            create_user(email)
             break
 
         elif choice == 3: 
